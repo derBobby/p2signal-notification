@@ -39,5 +39,5 @@ build/
 /src/main/resources/nextcloud.properties
 /src/main/resources/pretix.properties
 /src/main/resources/mail.properties
-/src/main/resources/signal.properties
+/src/main/resources/application-IT.properties
 /src/main/resources/h2.properties
