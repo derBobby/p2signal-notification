@@ -18,6 +18,9 @@ on:
         default: "staging"
         description: Environment to which the deployment is done.
 
+env:
+  app: p2signal-notification
+
 jobs:
   mvn-publish:
     uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@main
@@ -39,13 +42,12 @@ jobs:
       DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
   deploy:
     needs: docker
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy on Server
-        uses: garygrossgarten/github-action-ssh@0.7.0
-        with:
-          command: -a p2nc-integrator -e ${{ inputs.environment || 'staging' }} -t latest
-          username: ${{ secrets.DEPLOYMENT_USER }}
-          host: ${{ secrets.DEPLOYMENT_HOST }}
-          port: ${{ secrets.DEPLOYMENT_PORT }}
-          privateKey: ${{ secrets.DEPLOYMENT_SSH_KEY }}
+    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@main
+    with:
+      app: ${{ env.app }}
+      environment: ${{ inputs.environment || 'staging' }}
+    secrets:
+      DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
+      DEPLOYMENT_HOST: ${{ secrets.DEPLOYMENT_HOST }}
+      DEPLOYMENT_PORT: ${{ secrets.DEPLOYMENT_PORT }}
+      DEPLOYMENT_SSH_KEY: ${{ secrets.DEPLOYMENT_SSH_KEY }}
