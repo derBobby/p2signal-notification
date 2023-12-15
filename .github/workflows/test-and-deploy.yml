@@ -18,9 +18,6 @@ on:
         default: "staging"
         description: Environment to which the deployment is done.
 
-env:
-  app: p2signal-notification
-
 jobs:
   mvn-publish:
     uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@main
@@ -44,7 +41,7 @@ jobs:
     needs: docker
     uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@main
     with:
-      app: ${{ env.app }}
+      app: p2signal-notification
       environment: ${{ inputs.environment || 'staging' }}
     secrets:
       DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
