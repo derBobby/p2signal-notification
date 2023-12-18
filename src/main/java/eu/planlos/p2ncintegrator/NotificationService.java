@@ -1,6 +1,7 @@
 package eu.planlos.p2ncintegrator;
 
 import eu.planlos.javapretixconnector.IPretixWebHookHandler;
+import eu.planlos.javapretixconnector.common.PretixException;
 import eu.planlos.javapretixconnector.model.Answer;
 import eu.planlos.javapretixconnector.model.Booking;
 import eu.planlos.javapretixconnector.model.Position;
@@ -10,13 +11,13 @@ import eu.planlos.javapretixconnector.model.dto.WebHookResult;
 import eu.planlos.javapretixconnector.service.PretixBookingService;
 import eu.planlos.javapretixconnector.service.PretixEventFilterService;
 import eu.planlos.javasignalconnector.SignalService;
+import eu.planlos.javasignalconnector.model.SignalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static eu.planlos.javapretixconnector.model.QnaMapUtility.extractQnaMap;
 import static eu.planlos.javapretixconnector.model.dto.PretixSupportedActions.*;
@@ -57,28 +58,36 @@ public class NotificationService implements IPretixWebHookHandler {
             Booking booking = pretixBookingService.loadOrFetch(event, code);
             log.info("Order found: {}", booking);
 
+            String messageSubject = String.format("New order (%s) from %s for %s", code, booking.getEmail(), event);
+            List<String> participantList = booking.getPositionList().stream()
+                        .map(this::extractNameFromPosition)
+                        .flatMap(Optional::stream)
+                        .toList();
+            String messageUrl = pretixBookingService.getOrderUrl(event, code);
 
-            List<Position> positionsList = booking.getPositionList();
-            List<String> participantList = positionsList.stream()
-                    .map(this::extractNameFromPosition)
-                    .flatMap(Optional::stream)
-                    .toList();
-
-            String email = String.format("New order from: %s", booking.getEmail());
-            String signalMessage = String.join(
-                    "\\n",
-                    Stream.concat(Stream.of(email),participantList.stream()).toList()
-            );
+            String signalMessage = buildMessage(messageSubject, participantList, messageUrl);
 
             signalService.sendMessageToRecipients(signalMessage);
 
             return new WebHookResult(true, String.format("Message was sent for %d participants", participantList.size()));
 
-        } catch (Exception e) {
-            String errorMessage = String.format("Error sending signal message for order code %s: %s", code, e.getMessage());
+        } catch (SignalException e) {
+            String errorMessage = String.format("Error sending signal message: %s", e.getMessage());
+            log.error(errorMessage);
+            return new WebHookResult(false, errorMessage);
+        } catch (PretixException f) {
+            String errorMessage = String.format("Error loading Booking from Pretix for order code %s: %s", code, f.getMessage());
             log.error(errorMessage);
             return new WebHookResult(false, errorMessage);
         }
+    }
+
+    private String buildMessage(String email, List<String> participantList, String url) {
+        return String.format(
+                "%s\\n\\n%s\\n\\n%s",
+                email,
+                String.join("\\n", participantList),
+                url);
     }
 
     private Optional<String> extractNameFromPosition(Position position) {
