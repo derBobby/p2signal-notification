@@ -41,3 +41,4 @@ build/
 /src/main/resources/mail.properties
 /src/main/resources/application-IT.properties
 /src/main/resources/h2.properties
+/src/main/resources/application.properties
