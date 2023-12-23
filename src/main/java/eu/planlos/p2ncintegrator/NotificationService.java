@@ -46,19 +46,21 @@ public class NotificationService implements IPretixWebHookHandler {
                 ORDER_PLACED, ORDER_NEED_APPROVAL, ORDER_APPROVED, ORDER_CANCELED);
 
         if(supportedActionsList.contains(action)) {
-            return processNotificationForRequest(action.getAction(), event, code);
+            return processNotificationForRequest(action, event, code);
         }
 
         return new WebHookResult(true, "Notification has been sent.");
     }
 
-    private WebHookResult processNotificationForRequest(String action, String event, String code) {
+    private WebHookResult processNotificationForRequest(PretixSupportedActions action, String event, String code) {
+
+        String actionDescription = action.getDescription();
 
         try {
             Booking booking = pretixBookingService.loadOrFetch(event, code);
             log.info("Order found: {}", booking);
 
-            String messageSubject = String.format("New order (%s) from %s for %s", code, booking.getEmail(), event);
+            String messageSubject = String.format("%s: %s from %s for %s", actionDescription, code, booking.getEmail(), event);
             List<String> participantList = booking.getPositionList().stream()
                         .map(this::extractNameFromPosition)
                         .flatMap(Optional::stream)
