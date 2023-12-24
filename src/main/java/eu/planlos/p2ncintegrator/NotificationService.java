@@ -40,24 +40,24 @@ public class NotificationService implements IPretixWebHookHandler {
     }
 
     @Override
-    public WebHookResult handleWebhook(PretixSupportedActions action, String event, String code) {
+    public WebHookResult handleWebhook(String organizer, String event, String code, PretixSupportedActions action) {
 
         List<PretixSupportedActions> supportedActionsList = List.of(
                 ORDER_PLACED, ORDER_NEED_APPROVAL, ORDER_APPROVED, ORDER_CANCELED);
 
         if(supportedActionsList.contains(action)) {
-            return processNotificationForRequest(action, event, code);
+            return processNotificationForRequest(action, organizer, event, code);
         }
 
-        return new WebHookResult(true, "Notification has been sent.");
+        return new WebHookResult(true, "Webhook action not in list of supported actions -> ignored");
     }
 
-    private WebHookResult processNotificationForRequest(PretixSupportedActions action, String event, String code) {
+    private WebHookResult processNotificationForRequest(PretixSupportedActions action, String organizer, String event, String code) {
 
         String actionDescription = action.getDescription();
 
         try {
-            Booking booking = pretixBookingService.loadOrFetch(event, code);
+            Booking booking = pretixBookingService.loadOrFetch(organizer, event, code);
             log.info("Order found: {}", booking);
 
             String messageSubject = String.format("%s: %s from %s for %s", actionDescription, code, booking.getEmail(), event);

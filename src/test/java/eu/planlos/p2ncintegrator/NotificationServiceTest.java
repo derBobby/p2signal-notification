@@ -32,7 +32,8 @@ public class NotificationServiceTest {
 
     private final static Booking mockBooking = mock(Booking.class);
 
-    private final static String HOOK_EVENT = "Event";
+    private final static String HOOK_ORGANIZER = "organizer";
+    private final static String HOOK_EVENT = "event";
     private final static String HOOK_CODE = "XCODE";
     private final static String EMAIL = "email@example.com";
     private final static String FIRSTNAME = "Firstname";
@@ -53,10 +54,10 @@ public class NotificationServiceTest {
         // Prepare
         //      objects
         //      methods
-        when(pretixBookingService.loadOrFetch(HOOK_EVENT, HOOK_CODE)).thenReturn(mockBooking);
+        when(pretixBookingService.loadOrFetch(HOOK_ORGANIZER, HOOK_EVENT, HOOK_CODE)).thenReturn(mockBooking);
 
         // Act
-        notificationService.handleWebhook(ORDER_NEED_APPROVAL, HOOK_EVENT, HOOK_CODE);
+        notificationService.handleWebhook(HOOK_ORGANIZER, HOOK_EVENT, HOOK_CODE, ORDER_NEED_APPROVAL);
 
         // Check
         verify(signalService).sendMessageToRecipients(anyString());
@@ -67,10 +68,10 @@ public class NotificationServiceTest {
      */
 
     private void positionFilterIrrelevant() {
-        when(pretixEventFilterService.bookingNotWantedByAnyFilter(anyString(), any())).thenReturn(true);
+        when(pretixEventFilterService.bookingNotWantedByAnyFilter(any(), any())).thenReturn(true);
     }
 
     private void positionFilterRelevant() {
-        when(pretixEventFilterService.bookingNotWantedByAnyFilter(anyString(), any())).thenReturn(false);
+        when(pretixEventFilterService.bookingNotWantedByAnyFilter(any(), any())).thenReturn(false);
     }
 }
