@@ -1,0 +1,25 @@
+name: "Deploy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        # TODO can be environment. Advantages?
+        type: choice
+        options:
+          - "staging"
+          - "production"
+        default: "staging"
+        description: Environment to which the deployment is done.
+
+jobs:
+  deploy:
+    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@main
+    with:
+      app: p2signal-notification
+      environment: ${{ inputs.environment || 'staging' }}
+    secrets:
+      DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
+      DEPLOYMENT_HOST: ${{ secrets.DEPLOYMENT_HOST }}
+      DEPLOYMENT_PORT: ${{ secrets.DEPLOYMENT_PORT }}
+      DEPLOYMENT_SSH_KEY: ${{ secrets.DEPLOYMENT_SSH_KEY }}
