@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static eu.planlos.javapretixconnector.model.QnaMapUtility.extractQnaMap;
-import static eu.planlos.javapretixconnector.model.dto.PretixSupportedActions.*;
 
 /**
  * Core class of the application. Has callback interface for Pretix package and runs request against Nextcloud API
@@ -41,30 +40,24 @@ public class NotificationService implements IPretixWebHookHandler {
 
     @Override
     public WebHookResult handleWebhook(String organizer, String event, String code, PretixSupportedActions action) {
-
-        List<PretixSupportedActions> supportedActionsList = List.of(
-                ORDER_PLACED, ORDER_NEED_APPROVAL, ORDER_APPROVED, ORDER_CANCELED);
-
-        if(supportedActionsList.contains(action)) {
-            return processNotificationForRequest(action, organizer, event, code);
-        }
-
-        return new WebHookResult(true, "Webhook action not in list of supported actions -> ignored");
+        return processNotificationForRequest(action, organizer, event, code);
     }
 
     private WebHookResult processNotificationForRequest(PretixSupportedActions action, String organizer, String event, String code) {
-
-        String actionDescription = action.getDescription();
 
         try {
             Booking booking = pretixBookingService.loadOrFetch(organizer, event, code);
             log.info("Order found: {}", booking);
 
-            String messageSubject = String.format("%s: %s from %s for %s", actionDescription, code, booking.getEmail(), event);
+            if (pretixEventFilterService.bookingNotWantedByAnyFilter(action, booking)) {
+                return new WebHookResult(true, "Booking was not selected by any filter");
+            }
+
             List<String> participantList = booking.getPositionList().stream()
-                        .map(this::extractNameFromPosition)
-                        .flatMap(Optional::stream)
-                        .toList();
+                    .map(this::extractNameFromPosition)
+                    .flatMap(Optional::stream)
+                    .toList();
+            String messageSubject = String.format("%s: %s from %s for %s", action.getDescription(), code, booking.getEmail(), event);
             String messageUrl = pretixBookingService.getOrderUrl(event, code);
 
             String signalMessage = buildMessage(messageSubject, participantList, messageUrl);
