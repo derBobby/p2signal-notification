@@ -1,4 +1,4 @@
-package eu.planlos.p2ncintegrator;
+package eu.planlos.p2signalnotification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

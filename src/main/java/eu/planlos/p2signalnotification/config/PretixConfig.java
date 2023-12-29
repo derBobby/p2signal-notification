@@ -1,4 +1,4 @@
-package eu.planlos.p2ncintegrator.config;
+package eu.planlos.p2signalnotification.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * https://stackoverflow.com/a/72172859/7350955
  */
 @Configuration
-@ComponentScan(basePackages = "eu.planlos.javasignalconnector")
-public class SignalConfig {
+@ComponentScan(basePackages = "eu.planlos.javapretixconnector")
+public class PretixConfig {
 }

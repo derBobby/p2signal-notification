@@ -1,4 +1,4 @@
-package eu.planlos.p2ncintegrator;
+package eu.planlos.p2signalnotification;
 
 import eu.planlos.javapretixconnector.model.Booking;
 import eu.planlos.javapretixconnector.service.PretixBookingService;

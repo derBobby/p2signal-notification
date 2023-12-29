@@ -1,4 +1,4 @@
-package eu.planlos.p2ncintegrator;
+package eu.planlos.p2signalnotification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
