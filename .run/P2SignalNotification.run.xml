@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="P2SignalNotification" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="p2signal-notification" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="eu.planlos.p2signalnotification.P2SignalNotification" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
