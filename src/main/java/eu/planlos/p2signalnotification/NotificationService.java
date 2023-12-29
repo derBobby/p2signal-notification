@@ -1,7 +1,7 @@
 package eu.planlos.p2signalnotification;
 
 import eu.planlos.javapretixconnector.IPretixWebHookHandler;
-import eu.planlos.javapretixconnector.common.PretixException;
+import eu.planlos.javapretixconnector.model.PretixException;
 import eu.planlos.javapretixconnector.model.Answer;
 import eu.planlos.javapretixconnector.model.Booking;
 import eu.planlos.javapretixconnector.model.Position;
