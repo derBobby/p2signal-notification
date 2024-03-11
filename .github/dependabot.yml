@@ -5,17 +5,14 @@
 
 version: 2
 registries:
+  maven-central:
+    type: maven-repository
+    url: https://repo.maven.apache.org/maven2
   maven-github:
     type: maven-repository
     url: https://maven.pkg.github.com/derBobby
-#    username: octocat
-#    password: ${{secrets.MY_ARTIFACTORY_PASSWORD}}
 updates:
   - package-ecosystem: "github-actions" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "maven" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
@@ -25,3 +22,4 @@ updates:
       interval: "daily"
     registries:
       - maven-github
+      - maven-central # Default Maven registry
