@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        # TODO can be environment. Advantages?
         type: choice
         options:
           - "staging"
