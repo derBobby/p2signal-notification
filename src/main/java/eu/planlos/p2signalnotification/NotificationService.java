@@ -4,7 +4,7 @@ import eu.planlos.javapretixconnector.IPretixWebHookHandler;
 import eu.planlos.javapretixconnector.model.PretixException;
 import eu.planlos.javapretixconnector.model.Answer;
 import eu.planlos.javapretixconnector.model.Booking;
-import eu.planlos.javapretixconnector.model.Position;
+import eu.planlos.javapretixconnector.model.Item;
 import eu.planlos.javapretixconnector.model.Question;
 import eu.planlos.javapretixconnector.model.dto.PretixSupportedActions;
 import eu.planlos.javapretixconnector.model.dto.WebHookResult;
@@ -53,8 +53,8 @@ public class NotificationService implements IPretixWebHookHandler {
                 return new WebHookResult(true, "Booking was not selected by any filter");
             }
 
-            List<String> participantList = booking.getPositionList().stream()
-                    .map(this::extractNameFromPosition)
+            List<String> participantList = booking.getItemList().stream()
+                    .map(this::extractNameFromItem)
                     .flatMap(Optional::stream)
                     .toList();
             String messageSubject = String.format("%s: %s from %s for %s", action.getDescription(), code, booking.getEmail(), event);
@@ -85,13 +85,13 @@ public class NotificationService implements IPretixWebHookHandler {
                 url);
     }
 
-    private Optional<String> extractNameFromPosition(Position position) {
+    private Optional<String> extractNameFromItem(Item item) {
 
-        if(position.getProduct().getProductType().isAddon()) {
+        if(item.getProduct().getProductType().isAddon()) {
             return Optional.empty();
         }
 
-        Map<Question, Answer> qnaMap = position.getQnA();
+        Map<Question, Answer> qnaMap = item.getQnA();
         Map<String, String> qnaStringMap = extractQnaMap(qnaMap);
 
         String firstname = qnaStringMap.get("Kind Vorname");

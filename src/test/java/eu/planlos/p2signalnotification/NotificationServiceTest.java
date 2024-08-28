@@ -62,16 +62,4 @@ public class NotificationServiceTest {
         // Check
         verify(signalService).sendMessageToRecipients(anyString());
     }
-
-    /**
-     * Order approved tests
-     */
-
-    private void positionFilterIrrelevant() {
-        when(pretixEventFilterService.bookingNotWantedByAnyFilter(any(), any())).thenReturn(true);
-    }
-
-    private void positionFilterRelevant() {
-        when(pretixEventFilterService.bookingNotWantedByAnyFilter(any(), any())).thenReturn(false);
-    }
 }
