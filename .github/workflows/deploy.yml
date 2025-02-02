@@ -18,9 +18,9 @@ jobs:
       app: p2signal-notification
       environment: ${{ inputs.environment || 'staging' }}
     secrets:
-      DEPLOYMENT_USER: ${{ user }}
-      DEPLOYMENT_HOST: ${{ host }}
-      DEPLOYMENT_PORT: ${{ port }}
+      DEPLOYMENT_USER: ${{ vars.USER }}
+      DEPLOYMENT_HOST: ${{ vars.HOST }}
+      DEPLOYMENT_PORT: ${{ vars.PORT }}
       #DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
       #DEPLOYMENT_HOST: ${{ secrets.DEPLOYMENT_HOST }}
       #DEPLOYMENT_PORT: ${{ secrets.DEPLOYMENT_PORT }}
