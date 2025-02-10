@@ -42,3 +42,6 @@ build/
 /src/main/resources/application-IT.properties
 /src/main/resources/h2.properties
 /src/main/resources/application.properties
+/node_modules/
+/package.json
+/package-lock.json
