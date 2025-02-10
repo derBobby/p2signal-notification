@@ -18,6 +18,28 @@ on:
         description: Environment to which the deployment is done.
 
 jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/commit-analyzer @semantic-release/release-notes-generator
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+        run: npx semantic-release
+      - name: Set version in pom.xml
+        run: mvn versions:set -DnewVersion=$(npx semantic-release --dry-run | grep -oP 'next release version is \K[0-9]+\.[0-9]+\.[0-9]+')
+
+
   mvn-publish:
     uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@main
     with:
