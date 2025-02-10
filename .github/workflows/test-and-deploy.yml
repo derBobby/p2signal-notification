@@ -19,7 +19,7 @@ on:
 
 jobs:
 
-  release:
+  semantic-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -41,6 +41,7 @@ jobs:
 
 
   mvn-publish:
+    needs: semantic-release
     uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@main
     with:
       mvn-stage: deploy
