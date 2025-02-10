@@ -1,21 +1,8 @@
-name: "CD"
+name: "ci-test"
 
 on:
-  pull_request:
-    branches: [ main ]
-    types:
-      - closed
   push:
-    branches: [ main ]
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: choice
-        options:
-          - "staging"
-          - "production"
-        default: "staging"
-        description: Environment to which the deployment is done.
+    branches: [ ci-test ]
 
 jobs:
 
