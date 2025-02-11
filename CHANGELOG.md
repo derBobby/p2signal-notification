@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/derBobby/p2signal-notification/compare/v1.0.5...v1.1.0) (2025-02-11)
+
+
+### Features
+
+* **semantic-release:** Set mvn version ([5d2aad7](https://github.com/derBobby/p2signal-notification/commit/5d2aad7be9ff56cb742e38b25965a275e3b27523))
+
 ## [1.0.5](https://github.com/derBobby/p2signal-notification/compare/v1.0.4...v1.0.5) (2025-02-11)
 
 
