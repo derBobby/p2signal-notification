@@ -14,7 +14,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "mvn deploy -s ~/.m2/settings.xml"
+        "publishCmd": "mvn deploy -s ~/.m2/settings.xml "
       }
     ],
     [
