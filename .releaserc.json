@@ -14,7 +14,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "mvn deploy -s $HOME/.m2/settings.xml"
+        "publishCmd": "mvn deploy -s /c/Users/derbo/.m2/settings.xml"
       }
     ],
     [
