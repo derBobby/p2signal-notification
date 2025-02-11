@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/derBobby/p2signal-notification/compare/v1.0.3...v1.0.4) (2025-02-11)
+
+
+### Bug Fixes
+
+* **semantic-release:** Added/removed space for test ([914aab8](https://github.com/derBobby/p2signal-notification/commit/914aab8d23a2d4f50d3a64df5fca935bb7692c68))
+
 ## [1.0.3](https://github.com/derBobby/p2signal-notification/compare/v1.0.2...v1.0.3) (2025-02-11)
 
 
