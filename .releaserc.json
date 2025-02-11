@@ -14,7 +14,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "mvn deploy -s C:\\Users\\derbo\\.m2\\settings.xml"
+        "publishCmd": "mvn versions:set -DnewVersion=${nextRelease.version} && mvn deploy -s C:\\Users\\derbo\\.m2\\settings.xml"
       }
     ],
     [
