@@ -1,0 +1,28 @@
+{
+  "repositoryUrl": "git@github.com:derBobby/p2signal-notification.git",
+  "branches": [
+    "main",
+    {
+      "name": "release/*",
+      "prerelease": "rc"
+    }
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "mvn deploy -s ~/.m2/settings.xml"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["pom.xml", "CHANGELOG.md"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]"
+      }
+    ]
+  ]
+}
