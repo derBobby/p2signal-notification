@@ -6,7 +6,7 @@
 
     <groupId>eu.planlos</groupId>
     <artifactId>p2signal-notification</artifactId>
-    <version>1.16.0</version>
+    <version>0.0.0</version> <!-- Placeholder for semantic-release -->
 
     <parent>
         <groupId>org.springframework.boot</groupId>
