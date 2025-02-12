@@ -2,11 +2,15 @@ name: "CD"
 
 on:
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - staging
     types:
       - closed
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - staging
   workflow_dispatch:
     inputs:
       environment:
@@ -18,30 +22,46 @@ on:
         description: Environment to which the deployment is done.
 
 jobs:
+  set_environment:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set_env.outputs.environment }}
+    steps:
+      - name: Determine environment based on event
+        id: set_env
+        run: |
+          if [[ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]]; then
+            echo "environment=${{ inputs.environment }}" >> $GITHUB_ENV
+          elif [[ $GITHUB_REF == 'refs/heads/main' ]]; then
+            echo "environment=production" >> $GITHUB_ENV
+          else
+            echo "environment=staging" >> $GITHUB_ENV
+          fi
   mvn-publish:
-    uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@main
+    uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@v2
     with:
       mvn-stage: deploy
       cache: true
   codeql:
     needs: mvn-publish
-    uses: derBobby/java-pipelines/.github/workflows/callable-codeql.yml@main
+    uses: derBobby/java-pipelines/.github/workflows/callable-codeql.yml@v2
   docker:
     needs: mvn-publish
-    uses: derBobby/java-pipelines/.github/workflows/callable-docker.yml@main
+    uses: derBobby/java-pipelines/.github/workflows/callable-docker.yml@v2
     with:
-      cache-key: ${{ needs.mvn-publish.outputs.cache-key }}
-      environment: ${{ inputs.environment || 'staging' }}
+      java-cache-key: ${{ needs.mvn-publish.outputs.java-cache-key }}
+      app-version: ${{ needs.mvn-publish.outputs.app-version }}
     secrets:
       DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
       DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
   deploy:
     needs: docker
-    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@main
+    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v2
     with:
       app: p2signal-notification
-      environment: ${{ inputs.environment || 'staging' }}
+      environment: ${{ steps.set_environment.outputs.environment }}
+      app-version: ${{ needs.mvn-publish.outputs.app-version }}
     secrets:
       DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
       DEPLOYMENT_HOST: ${{ secrets.DEPLOYMENT_HOST }}

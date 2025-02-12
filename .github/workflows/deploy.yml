@@ -10,13 +10,18 @@ on:
           - "production"
         default: "staging"
         description: Environment to which the deployment is done.
+      app-version:
+        type: string
+        default: latest
+        description: Version tag of app to deploy.
 
 jobs:
   deploy:
-    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@main
+    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v2
     with:
       app: p2signal-notification
       environment: ${{ inputs.environment || 'staging' }}
+      app-version: ${{ inputs.app-version || 'latest' }}
     secrets:
       DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
       DEPLOYMENT_HOST: ${{ secrets.DEPLOYMENT_HOST }}
