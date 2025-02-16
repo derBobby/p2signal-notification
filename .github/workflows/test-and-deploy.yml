@@ -37,8 +37,7 @@ jobs:
           else
             echo "environment=staging" >> $GITHUB_ENV
           fi
-          echo "::set-output name=environment::${{ env.environment }}"
-
+          echo "environment=${{ env.environment }}" >> $GITHUB_OUTPUT
   mvn-publish:
     uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@v3.0.0
     with:
@@ -58,7 +57,9 @@ jobs:
       DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
   deploy:
-    needs: docker
+    needs:
+      - docker
+      - set_environment
     uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v3.0.0
     with:
       app: p2signal-notification
