@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/derBobby/p2signal-notification/compare/v1.18.1...v1.18.2) (2025-02-16)
+
+
+### Bug Fixes
+
+* **pipeline:** Fix using output of not added job as needed ([6287dc6](https://github.com/derBobby/p2signal-notification/commit/6287dc6116120ff73c111bff71766e0e2b205459))
+
 ## [1.18.1](https://github.com/derBobby/p2signal-notification/compare/v1.18.0...v1.18.1) (2025-02-16)
 
 
