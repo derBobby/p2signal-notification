@@ -38,16 +38,16 @@ jobs:
             echo "environment=staging" >> $GITHUB_ENV
           fi
   mvn-publish:
-    uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@v2
+    uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@v2.1.0
     with:
       mvn-stage: deploy
       cache: true
   codeql:
     needs: mvn-publish
-    uses: derBobby/java-pipelines/.github/workflows/callable-codeql.yml@v2
+    uses: derBobby/java-pipelines/.github/workflows/callable-codeql.yml@v2.1.0
   docker:
     needs: mvn-publish
-    uses: derBobby/java-pipelines/.github/workflows/callable-docker.yml@v2
+    uses: derBobby/java-pipelines/.github/workflows/callable-docker.yml@v2.1.0
     with:
       java-cache-key: ${{ needs.mvn-publish.outputs.java-cache-key }}
       app-version: ${{ needs.mvn-publish.outputs.app-version }}
@@ -57,11 +57,11 @@ jobs:
       DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
   deploy:
     needs: docker
-    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v2
+    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v2.1.0
     with:
       app: p2signal-notification
       environment: ${{ steps.set_environment.outputs.environment }}
-      app-version: ${{ needs.mvn-publish.outputs.app-version }}
+      java-app-version: ${{ needs.mvn-publish.outputs.app-version }}
     secrets:
       DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
       DEPLOYMENT_HOST: ${{ secrets.DEPLOYMENT_HOST }}
