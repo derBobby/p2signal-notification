@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/derBobby/p2signal-notification/compare/v1.18.0...v1.18.1) (2025-02-16)
+
+
+### Bug Fixes
+
+* **pipeline:** Fix variable jar-cache-key ([ca1f64e](https://github.com/derBobby/p2signal-notification/commit/ca1f64ec9a60887b1f5757e682d4e92dbe576531))
+
 # [1.18.0](https://github.com/derBobby/p2signal-notification/compare/v1.17.0...v1.18.0) (2025-02-16)
 
 
