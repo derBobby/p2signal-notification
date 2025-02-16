@@ -31,13 +31,12 @@ jobs:
         id: set_env
         run: |
           if [[ $GITHUB_EVENT_NAME == 'workflow_dispatch' ]]; then
-            echo "environment=${{ inputs.environment }}" >> $GITHUB_ENV
+            echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
           elif [[ $GITHUB_REF == 'refs/heads/main' ]]; then
-            echo "environment=production" >> $GITHUB_ENV
+            echo "environment=production" >> $GITHUB_OUTPUT
           else
-            echo "environment=staging" >> $GITHUB_ENV
+            echo "environment=staging" >> $GITHUB_OUTPUT
           fi
-          echo "environment=${{ env.environment }}" >> $GITHUB_OUTPUT
   mvn-publish:
     uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@v3.0.0
     with:
