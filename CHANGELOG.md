@@ -1,3 +1,10 @@
+## [1.18.4](https://github.com/derBobby/p2signal-notification/compare/v1.18.3...v1.18.4) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** fix app name ([cbfa6fe](https://github.com/derBobby/p2signal-notification/commit/cbfa6fe319588d12b6208963d278f5f2e24132f4))
+
 ## [1.18.3](https://github.com/derBobby/p2signal-notification/compare/v1.18.2...v1.18.3) (2025-02-23)
 
 
