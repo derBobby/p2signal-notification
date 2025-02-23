@@ -1,3 +1,10 @@
+## [1.18.6](https://github.com/derBobby/p2signal-notification/compare/v1.18.5...v1.18.6) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** pipe version update ([e0af390](https://github.com/derBobby/p2signal-notification/commit/e0af3908a62fcbde09b26e362f1dc8c9f3e13d58))
+
 ## [1.18.5](https://github.com/derBobby/p2signal-notification/compare/v1.18.4...v1.18.5) (2025-02-23)
 
 
