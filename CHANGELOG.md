@@ -1,3 +1,10 @@
+## [1.18.5](https://github.com/derBobby/p2signal-notification/compare/v1.18.4...v1.18.5) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** fix auto merge for dependabot ([a501253](https://github.com/derBobby/p2signal-notification/commit/a50125395941704b40cf53067446c079cb49220d))
+
 ## [1.18.4](https://github.com/derBobby/p2signal-notification/compare/v1.18.3...v1.18.4) (2025-02-23)
 
 
