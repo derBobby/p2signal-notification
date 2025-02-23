@@ -17,7 +17,7 @@ on:
 
 jobs:
   deploy:
-    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v4.0.5
+    uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v4.0.6
     with:
       app: p2signal-notification
       environment: ${{ inputs.environment || 'staging' }}
