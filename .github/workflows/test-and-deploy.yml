@@ -62,7 +62,7 @@ jobs:
       - mvn-publish
     uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v4.0.1
     with:
-      app: p2signal-notification
+      app: p2nc-integrator
       environment: ${{ needs.set_environment.outputs.environment }}
       app-version: ${{ needs.mvn-publish.outputs.app-version }}
     secrets:
