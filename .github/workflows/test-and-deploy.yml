@@ -46,8 +46,8 @@ jobs:
     needs: mvn-deploy
     uses: derBobby/java-pipelines/.github/workflows/callable-docker.yml@v4.0.6
     with:
-      jar-cache-key: ${{ needs.mvn-publish.outputs.jar-cache-key }}
-      app-version: ${{ needs.mvn-publish.outputs.app-version }}
+      jar-cache-key: ${{ needs.mvn-deploy.outputs.jar-cache-key }}
+      app-version: ${{ needs.mvn-deploy.outputs.app-version }}
     secrets:
       DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
       DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
