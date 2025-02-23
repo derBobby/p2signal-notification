@@ -37,16 +37,13 @@ jobs:
           else
             echo "environment=staging" >> $GITHUB_OUTPUT
           fi
-  mvn-publish:
-    uses: derBobby/java-pipelines/.github/workflows/callable-mvn.yml@v4.0.5
-    with:
-      mvn-stage: deploy
-      cache: true
+  mvn-deploy:
+    uses: derBobby/java-pipelines/.github/workflows/callable-mvn-deploy.yml@v4.0.5
   codeql:
-    needs: mvn-publish
+    needs: mvn-deploy
     uses: derBobby/java-pipelines/.github/workflows/callable-codeql.yml@v4.0.5
   docker:
-    needs: mvn-publish
+    needs: mvn-deploy
     uses: derBobby/java-pipelines/.github/workflows/callable-docker.yml@v4.0.5
     with:
       jar-cache-key: ${{ needs.mvn-publish.outputs.jar-cache-key }}
@@ -59,7 +56,7 @@ jobs:
     needs:
       - docker
       - set_environment
-      - mvn-publish
+      - mvn-deploy
     uses: derBobby/java-pipelines/.github/workflows/callable-deploy.yml@v4.0.5
     with:
       app: p2signal-notification
