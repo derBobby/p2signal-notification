@@ -1,3 +1,11 @@
+## [1.18.8](https://github.com/derBobby/p2signal-notification/compare/v1.18.7...v1.18.8) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** fix naming error ([b05030e](https://github.com/derBobby/p2signal-notification/commit/b05030e98d354eb0033fb4e0b8bd8ddf6e39270f))
+* **pipeline:** fix naming error ([8b2c22b](https://github.com/derBobby/p2signal-notification/commit/8b2c22b72cf09d64d90429d2544a620604fe3b2c))
+
 ## [1.18.7](https://github.com/derBobby/p2signal-notification/compare/v1.18.6...v1.18.7) (2025-02-23)
 
 
