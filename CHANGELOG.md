@@ -1,3 +1,11 @@
+## [1.18.3](https://github.com/derBobby/p2signal-notification/compare/v1.18.2...v1.18.3) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** Add several files for dependabot sem-rel ([189229c](https://github.com/derBobby/p2signal-notification/commit/189229c099e6072203355e3525d3c1c585b4d41c))
+* **pipeline:** Add several files for dependabot sem-rel ([7bc1cd2](https://github.com/derBobby/p2signal-notification/commit/7bc1cd258e8d930e580dbbbd36123188360abff1))
+
 ## [1.18.2](https://github.com/derBobby/p2signal-notification/compare/v1.18.1...v1.18.2) (2025-02-16)
 
 
