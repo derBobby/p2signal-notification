@@ -46,7 +46,7 @@
         <dependency>
             <groupId>eu.planlos</groupId>
             <artifactId>java-spring-web-utilities</artifactId>
-            <version>1.5.0</version>
+            <version>1.6.2</version>
         </dependency>
 
         <!-- Spring -->
